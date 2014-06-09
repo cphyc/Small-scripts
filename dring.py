@@ -1,4 +1,5 @@
 #/usr/env python3
+from __future__ import print_function
 ####################################################
 # This script was created by cphyc.                #
 #                                                  #
@@ -40,25 +41,24 @@ else:
 # get the current time
 t = time.localtime()
 c_hour, c_min = t.tm_hour, t.tm_min
-print(c_hour, c_min)
-print(t_hour, t_min)
+print("It is %d:%d." %(c_hour, c_min))
+print("Waking up at %d:%d." %(t_hour, t_min))
 
 # calculate the remaining time
-if t_hour - c_hour >= 0 and t_min - c_min >= 0:
-    r_hour = t_hour - c_hour
-else:
-    r_hour = 24 - t_hour - c_hour
+r_hour = t_hour - c_hour
+if r_hour < 0:
+    r_hour += 24
 r_min = t_min - c_min
+if r_min < 0:
+    r_hour -= 1
+    r_min += 60
 
-# Calculte the time remaining in seconds
+# Calculate the time remaining in seconds
 # remaining hours + remaining minutes - current time
 r_sec = r_hour*3600 + r_min*60 - t.tm_sec
 
 # sleep (haha) this whole time
-if r_min < 0:
-    print("Sleeping {}h{}m ({}s).".format(r_hour-1, r_min+60, r_sec))
-else:
-    print("Sleeping {}hw{}m ({}s)".format(r_hour, r_min, r_sec))
+print("Sleeping {}h{}m ({}s)!".format(r_hour, r_min, r_sec))
 time.sleep(r_sec)
 
 # actually execute the command which is contained in the remaining arguments
