@@ -1,4 +1,14 @@
-#! /bin/bash
+#!/bin/bash
+
+####################################################
+# This script was created by cphyc.                #
+#                                                  #
+# Whoever finds it interesting shall buy me a      #
+# beer or any drink if he is interested in         #
+# having fun with me. Otherwise, he can just       #
+# use it, modify it and add my name to his fork    #
+# (if he wants to).                                #
+####################################################
 
 find . -type f -name "*.flac" -print0 | while read -d $'\0' a
 

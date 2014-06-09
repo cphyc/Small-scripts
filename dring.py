@@ -1,5 +1,14 @@
 #/usr/env python3
-# From : http://www.junauza.com/2008/04/simple-python-alarm-clock.html
+####################################################
+# This script was created by cphyc.                #
+#                                                  #
+# Whoever finds it interesting shall buy me a      #
+# beer or any drink if he is interested in         #
+# having fun with me. Otherwise, he can just       #
+# use it, modify it and add my name to his fork    #
+# (if he wants to).                                #
+####################################################
+
 import time
 from subprocess import call
 import sys
@@ -49,7 +58,7 @@ r_sec = r_hour*3600 + r_min*60 - t.tm_sec
 if r_min < 0:
     print("Sleeping {}h{}m ({}s).".format(r_hour-1, r_min+60, r_sec))
 else:
-    print("Sleeping {}h{}m ({}s)".format(r_hour, r_min, r_sec))
+    print("Sleeping {}hw{}m ({}s)".format(r_hour, r_min, r_sec))
 time.sleep(r_sec)
 
 # actually execute the command which is contained in the remaining arguments
