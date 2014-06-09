@@ -10,8 +10,8 @@
 # (if he wants to).                                #
 ####################################################
 
+# Finds out all flac files and convert them
 find . -type f -name "*.flac" -print0 | while read -d $'\0' a
-
 do
     OUTF=${a%.flac}.mp3
 
