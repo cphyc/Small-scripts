@@ -11,6 +11,15 @@
 # (if he wants to).                                 #
 #####################################################
 
+# This script is supposed to be launched server side.
+# change the parameters jsut behind to suit your configuration
+server_port="24800" # default port for synergy
+client_adress="129.199.224.36"
+client_login="some_name"
+client_port="22" # default port for ssh
+
+
+
 # Start the synergy server daemon and sleep to ensure it's up
 # prior to kicking off our uber-simple client initialization
 synergys &
@@ -18,6 +27,8 @@ sleep 2
 
 # now, reverse-ssh into synergy client using key-based auth
 # and kick off synergy client over an encrypted network tunnel
-ssh -R 127.0.0.1:24800:127.0.0.1:24800 ccc@129.199.224.36 "synergyc -f 127.0.0.1"& 
+ssh -R 127.0.0.1:$server_port:127.0.0.1:$server_port $client_login@$client_adress\
+ -p $client_port "synergyc -f 127.0.0.1"& 
+
 zenity --info --title "Synergy" --text "Synergy server-client launched."
 # end of script
