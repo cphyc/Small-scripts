@@ -12,7 +12,7 @@
 #####################################################
 
 echo "Looking for an existing instance (be sure Grooveshark is alone in
-Firefox)..."
+your browser)..."
 ID=`xdotool search --name Grooveshark | tail -n 1`
 echo $ID
 if [[ $ID == "" ]]
