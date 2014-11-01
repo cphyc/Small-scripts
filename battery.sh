@@ -25,9 +25,9 @@ if [ $BATTERY_STATE == "Discharging" ]; then
     fi
     if [ $BATTERY -lt $BATTERY_PREV ]; then
 	if [ $BATTERY -le $BATTERY_LOW]; then
-	    notify-send "Battery critically low ($BATTERY%)\! Will shut down at $BATTERY_LOW%."
+	    notify-send "Battery critically low ($BATTERY%)\!" "Will shut down at $BATTERY_LOW%." -u critical
 	else 
-	    notify-send "Battery  low ($BATTERY%)\! Will shut down at $BATTERY_LOW%."
+	    notify-send "Battery  low ($BATTERY%)\!" "Will shut down at $BATTERY_LOW%." -u normal
 	fi
     fi
     [ $BATTERY -le $BATTERY_CRITICAL ] && halt -p
