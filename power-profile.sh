@@ -15,6 +15,6 @@ profile=$(
 )
 
 $SUDOER tuned-adm profile $profile && #2&> /dev/null &&
-zenity --info --text="Successfully changed power plan, it is now \`$(tuned-adm active | awk -F': ' '{ print $2 }')\'" ||
-zenity --info --text="An error occured, power plan not changed" 
+notify-send "Power plan" "$(tuned-adm active | awk -F': ' '{ print $2 }')" ||
+notify-send "Power plan" "an error occured" -u=critical 
 
