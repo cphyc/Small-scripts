@@ -1,24 +1,24 @@
 #!/bin/bash
- 
+
 #
 # author: vaidas jablonskis <jablonskis at gmail dot com>
 #
 # script which allows to control wifi on/of, battery life extender,
 # performance level for samsung series 9 laptop
 #
- 
+
 # these paths should be correct by default
 # if not set the variables correctly
 batt_life_ext="/sys/devices/platform/samsung/battery_life_extender"
 perf_level="/sys/devices/platform/samsung/performance_level"
 kbd="/sys/devices/platform/samsung/leds/samsung::kbd_backlight/brightness"
- 
+
 # wlan rfkill name tends to change, so just to be safe
 rfkill="$(grep -l "samsung-wlan" /sys/devices/platform/samsung/rfkill/rfkill*/name)"
 if [[ -f "$rfkill" ]]; then
 wlan_state="$(echo "$rfkill" | sed 's/name$/state/')"
 fi
- 
+
 # function which toggles battery life extender on/off
 batt() {
     batt_life_ext_value="$(cat $batt_life_ext)"
@@ -30,7 +30,7 @@ batt() {
      su ccc -c "notify-send --hint=int:transient:1 -t 250 'Battery life extender:' OFF"
     fi
 }
- 
+
 # function which toggles performance level (normal or silent)
 perf() {
     perf_level_value="$(cat $perf_level)"
@@ -42,7 +42,7 @@ perf() {
      su ccc -c "notify-send --hint=int:transient:1 -t 250 'Silent'"
     fi
 }
- 
+
 # function which toggles wifi on/off
 wlan() {
     wlan_state_value="$(cat $wlan_state)"
@@ -62,7 +62,7 @@ function kbd {
     if [[ $2 -eq "relat" ]]; then
 	backlight_new_value=`expr $backlight_value + "$1"`
     else
-	backlight_new_value="$1"
+	backlight_new_value=="$1"
     fi
 #    echo "New_value :" $backlight_new_value
     if [[ $backlight_new_value -eq -1 ]]; then backlight_new_value=0; fi
@@ -70,7 +70,7 @@ function kbd {
 
     su ccc -c "notify-send --hint=int:transient:1 -t 250 'Keyboard Backlight: $backlight_new_value'"
 }
- 
+
 case "$1" in
     batt)
         batt
@@ -84,9 +84,9 @@ case "$1" in
     kbd)
 	case "$2" in
 	    "up")
-		kbd 4 relat;;
+		kbd 2 relat;;
 	    "down")
-		kbd -4 relat;;
+		kbd -2 relat;;
 	    [0-8])
 		kbd "$2";;
 	    *)
