@@ -43,26 +43,31 @@
  )
 
 
-;{{{ Launches a server for faster file opening }-{
+;;{{{ Launches a server for faster file opening }-{
 (require 'server)
 (unless (server-running-p)
   (server-start))
-;}}}
+;;}}}
+
+;;{{{ Load semantic and ede mode }-{
+(semantic-mode 1)
+(global-ede-mode 1)
+(speedbar 1)
 
 
-;{{{ Assign f keys to compile }-{
+;;{{{ Assign f keys to compile }-{
 (global-set-key [f5] 'compile)
 (global-set-key [f6] 'recompile)
 (global-set-key [f7] 'next-error)
 ;}}} 
 
-;{{{ Find lisps files within ~/.emacs.d/ and its subdirectories }-{
+;;{{{ Find lisps files within ~/.emacs.d/ and its subdirectories }-{
 (let ((default-directory "~/.emacs.d/"))
   (normal-top-level-add-subdirs-to-load-path))
 ;}}} 
 
 
-;;{{{ OCaml Mode
+;;;{{{ OCaml Mode
 ;; make OCaml-generated files invisible to filename completion}-{
 (setq auto-mode-alist (cons '("\\.ml[iylp]?\\'" . tuareg-mode) auto-mode-alist))
 (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
@@ -72,7 +77,7 @@
   '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".annot"))
 ;}}}
 
-;{{{ Default speller }-{
+;;{{{ Default speller }-{
 (setq-default ispell-program-name "aspell")
 ;}}} 
 
@@ -81,7 +86,7 @@
 (setq ac-math-unicode-in-math-p t)
 ;; Auctex
 (load "auctex.el" nil t t)
-;{{{ Set default output to PDF }-{
+;;{{{ Set default output to PDF }-{
 (setq TeX-PDF-mode t)
 (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
 ;}}} {{{ Set default viewer to okular }-{
@@ -111,7 +116,7 @@
 ;;     candidate))
 ;}}}
 
-;{{{ What is that ?}-{
+;;{{{ What is that ?}-{
 (defun ac-latex-mode-setup ()
   (setq ac-sources
 	(append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
@@ -142,7 +147,7 @@
       predictive-which-dict t)
 ;;}}} 
 
-;{{{Code to support MESA (commented out) }-{
+;;{{{Code to support MESA (commented out) }-{
 ;; (autoload 'mesa-minor-mode "mesa minor mode")
 ;; (setq auto-mode-alist  (cons '("/inlist[^/]*$" . (lambda () (f90-mode) (mesa-minor-mode))) auto-mode-alist))
 ;; (setq auto-mode-alist  (cons '("\\.defaults\\'" . (lambda () (f90-mode) (view-mode))) auto-mode-alist))
@@ -154,7 +159,7 @@
 ;; web-mode
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/web-mode")
 
-;{{{Autosaves into ~/.emacs.d/saves in place of the current directory}-{
+;;{{{Autosaves into ~/.emacs.d/saves in place of the current directory}-{
 (setq
    backup-by-copying t      ; don't clobber symlinks
    backup-directory-alist
@@ -165,7 +170,7 @@
    version-control t)
 ;}}}
 
-;{{{ Recent files saved.
+;;{{{ Recent files saved.
 ;    TODO: work out a way to make it work with ido }-{
 (autoload 'recentf "recentf")
 (setq recentf-max-saved-items 200
@@ -173,7 +178,7 @@
 (recentf-mode +1)
 ;}}}
 
-;{{{ Maps C-Tab and C-S-T to next/prev. window}-{
+;;{{{ Maps C-Tab and C-S-T to next/prev. window}-{
 (defun frame-bck()
   (interactive)
   (other-window -1))
@@ -183,7 +188,7 @@
 ;}}}
 
 
-;{{{ gnuplot mode, mostly useless :)}-{
+;;{{{ gnuplot mode, mostly useless :)}-{
 ;; (autoload 'gnuplot-mode "gnuplot mode")
 ;; (setq gnuplot-program "/usr/bin/gnuplot")
 ;; (setq auto-mode-alist 
@@ -196,7 +201,7 @@
 (add-hook 'python-mode-hook 'eldoc-mode)
 ;(add-to-list 'company-backends 'company-anaconda)
 
-;{{{ 'Quickly' parse the local folder to look for .h, .hpp, .cpp, .hpp }-{
+;;{{{ 'Quickly' parse the local folder to look for .h, .hpp, .cpp, .hpp }-{
 (defadvice find-tag (before c-tag-file activate)
   "Automatically create tags file."
   (let ((tag-file (concat default-directory "TAGS")))
@@ -288,7 +293,7 @@ instance that works in the background."
 (add-to-list 'package-archives 
 	     '("marmalade" . "http://marmalade-repo.org/packages/"))
 
-;{{{ Interactively Do Things -- major mode for nice completion}-{
+;;{{{ Interactively Do Things -- major mode for nice completion}-{
 (autoload 'ido "ido")
 (ido-mode t)
 (global-set-key
@@ -339,10 +344,10 @@ instance that works in the background."
 				     nil require-match initial-input hist def))
 	ad-do-it))))
 
-;{{{ flycheck}-{
+;;{{{ flycheck}-{
 (add-hook 'after-init-hook 'global-flycheck-mode)
 ;}}}
-;{{{ Very nice mode that compiles on the go the file and underline the errors
+;;{{{ Very nice mode that compiles on the go the file and underline the errors
 ;    while you write them !}-{
 (autoload 'flymake "flymake")
 ;}}}
@@ -360,7 +365,7 @@ instance that works in the background."
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
 
-;{{{ Some customization:
+;;{{{ Some customization:
 ; automatically complete opening brackets
 ; show line number
 ; don't highlight current line}-{
@@ -415,7 +420,7 @@ instance that works in the background."
 (global-set-key (kbd "M-s p") 'previous-error)
 ;}}}
 
-;{{{ Fold and unfold with C-c , , (requires hs-minor-mode activated))}-{
+;;{{{ Fold and unfold with C-c , , (requires hs-minor-mode activated))}-{
 (add-hook 'c-mode-common-hook   'hs-minor-mode)
 (add-hook 'python-mode-hook     'hs-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
@@ -432,11 +437,11 @@ instance that works in the background."
 (yas-global-mode 1)
 (setq yas/triggers-in-field t) ; triggers expansion in nested snippets
 ;}}}
-;{{{ Provide a command to show the equivalent of the Unix command 'tree'}-{
+;;{{{ Provide a command to show the equivalent of the Unix command 'tree'}-{
 (require 'dirtree)
 ;}}}
 
-;{{{ Markdown support for syntax highlighting }-{
+;;{{{ Markdown support for syntax highlighting }-{
 (autoload 'markdown-mode "markdown-mode")
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
