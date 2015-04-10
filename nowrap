@@ -306,7 +306,7 @@ while (my $line = <>) {
             $cursor += char_to_columns($c);
         }
 
-        if ($cursor > $columns-2) {
+        if ($cursor > $columns-3) {
             $output .= "...";
             last;
         }
